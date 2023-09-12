@@ -12,7 +12,7 @@ Smart-Parking 프로젝트 브랜치 전략과 풀 리퀘스트
 
 <br>
 
-### `master 브랜치`
+### `main 브랜치`
 
 - develop 브랜치에서 배포할 수 있을 정도로 구현된 것을 Merge를 하는 브랜치입니다. 
 
