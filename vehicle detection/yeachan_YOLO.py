@@ -16,10 +16,11 @@ net = cv2.dnn.readNet(model_weights, model_config)
 
 # 비디오 파일을 열거나 웹캠을 사용하려면 VideoCapture 객체를 생성합니다.
 # 비디오 파일을 사용하려면 파일 경로를, 웹캠을 사용하려면 카메라 장치 번호를 입력하세요.
-cap = cv2.VideoCapture('Test_video/test5.mp4')  # 비디오 파일 경로를 수정하세요.
+cap = cv2.VideoCapture('Test_video/test2.mp4')  # 비디오 파일 경로를 수정하세요.
 # cap = cv2.VideoCapture(0)  # 웹캠 사용 예시
 
 while True:
+    cnt = 0
     ret, frame = cap.read()
 
     if not ret:
@@ -70,6 +71,8 @@ while True:
             color = (0, 255, 0)  # 객체 유형에 따라 색상을 변경할 수 있습니다.
             cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
             cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+            cnt += 1
+    print("차량의 수: ", cnt)
 
     cv2.imshow("Car Detection", frame)
 
