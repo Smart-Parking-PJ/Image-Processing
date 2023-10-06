@@ -5,7 +5,7 @@ car_cascade = cv2.CascadeClassifier('vehicle detection\model\haarcascade_car.xml
 
 # 비디오 파일을 열거나 웹캠을 사용하려면 VideoCapture 객체를 생성합니다.
 # 비디오 파일을 사용하려면 파일 경로를, 웹캠을 사용하려면 카메라 장치 번호를 입력하세요.
-cap = cv2.VideoCapture('Test_video/test3.mp4')  # 비디오 파일 경로를 수정하세요.
+cap = cv2.VideoCapture('Test_video/test2.mp4')  # 비디오 파일 경로를 수정하세요.
 # cap = cv2.VideoCapture(0)  # 웹캠 사용 예시
 
 while True:
