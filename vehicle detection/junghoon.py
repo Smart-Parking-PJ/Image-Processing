@@ -14,11 +14,11 @@ if 'releases_counter' not in session_state:
     session_state.releases_counter = 0
 
 
-yolo_cfg = 'yolov3.cfg'
-yolo_weights = 'yolov3.weights'
+yolo_cfg = 'vehicle detection\YOLO model\yolov3.cfg'
+yolo_weights = 'vehicle detection\YOLO model\yolov3.weights'
 
 
-yolo_classes = 'coco.names'
+yolo_classes = 'vehicle detection\YOLO model\coco.names'
 
 
 with open(yolo_classes, 'r') as f:
@@ -28,7 +28,8 @@ with open(yolo_classes, 'r') as f:
 net = cv2.dnn.readNet(yolo_weights, yolo_cfg)
 
 
-video_capture = cv2.VideoCapture('test2.mp4')  
+# video_capture = cv2.VideoCapture('Test_video\KakaoTalk_20231010_181752927.mp4')
+video_capture = cv2.VideoCapture(0)  
 
 
 total_parking_spots = 50  # 
