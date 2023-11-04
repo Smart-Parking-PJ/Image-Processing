@@ -5,9 +5,9 @@ import time
 count=0
 
 # YOLO 로드
-net = cv2.dnn.readNet("vehicle detection/pile/yolov3.weights", "vehicle detection/pile/yolov3 (1).cfg")
+net = cv2.dnn.readNet("vehicle detection\YOLO model\yolov3.weights", "vehicle detection\YOLO model\yolov3.cfg")
 classes = []
-with open('vehicle detection/pile/coco.names', "r") as f:
+with open('vehicle detection\YOLO model\coco.names', "r") as f:
     classes = [line.strip() for line in f.readlines()]
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i-1] for i in net.getUnconnectedOutLayers()]
