@@ -14,34 +14,28 @@ cap = cv2.VideoCapture(video_path)
 # Loop through the video frames
 while cap.isOpened():
     # Read a frame from the video
+    success, frame = cap.read()
 
-    cnt = 0
-    for i in range(100):
-        success, frame = cap.read()
+    if success:
+        # Run YOLOv8 inference on the frame
+        results = model(frame)
+        cnt = 0
+        for result in results:
+            boxes = result.boxes.cpu().numpy()
+            for i, box in enumerate(boxes):
+                name = result.names[int(box.cls[0])]
+                if name == "car" or name == "truck":
+                    cnt += 1
+                    r = box.xyxy[0].astype(int)
+                    cv2.rectangle(frame, r[:2], r[2:], (255, 255, 255), 2)
 
-        if success:
-            # Run YOLOv8 inference on the frame
-            results = model(frame)
-            cnt_tmp = 0
-            for result in results:
-                boxes = result.boxes.cpu().numpy()
-                for i, box in enumerate(boxes):
-                    name = result.names[int(box.cls[0])]
-                    if name == "car" or name == "truck":
-                        cnt_tmp += 1
-                        r = box.xyxy[0].astype(int)
-                        cv2.rectangle(frame, r[:2], r[2:], (255, 255, 255), 2)
-
-            if cnt_tmp > cnt:
-                cnt = cnt_tmp
-                cv2.imshow("YOLOv8 Inference", frame)
-
-            # Break the loop if 'q' is pressed
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                break
-        else:
-            # Break the loop if the end of the video is reached
+        cv2.imshow("YOLOv8 Inference", frame)
+        # Break the loop if 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord("q"):
             break
+    else:
+        # Break the loop if the end of the video is reached
+        break
 
 # Release the video capture object and close the display window
 cap.release()
