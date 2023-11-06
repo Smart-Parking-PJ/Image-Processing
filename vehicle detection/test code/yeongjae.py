@@ -24,7 +24,7 @@ def pega_centro(x, y, w, h):
 
 # 비디오 캡처 객체 생성 및 설정
 try:
-    cap = cv2.VideoCapture('test4.mp4')
+    cap = cv2.VideoCapture('Test_video\KakaoTalk_20231010_181752927.mp4')
     if not cap.isOpened():
         raise Exception("비디오 파일 열기 실패.")
 
