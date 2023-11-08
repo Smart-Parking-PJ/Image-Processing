@@ -16,22 +16,17 @@ model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
 # model2 = models.get("yolo_nas_m", pretrained_weights ="coco").to(device)
 # model3 = models.get("yolo_nas_s", pretrained_weights ="coco").to(device)
 
-img = cv2.imread("Test_video/test_photo4.jpg")
+img = cv2.imread("Test_video/test_photo1.jpg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
 
-result = model1.predict(img, conf=0.25)
+results = model1.predict(img, conf=0.25)
 
-first_frame = True
-output = result[0]
-bboxes = output.prediction.bboxes_xyxy
-confs = output.prediction.confidence
-labels = output.prediction.labels
-class_names = output.class_names
+for result in results :
+    labels = result.prediction.labels
 
-print(bboxes)
-print(confs)
-print(labels)
-print(class_names)
+labels = list(labels)
+cnt = labels.count(2) + labels.count(7)
 
-result.show()
+print("인식된 차량의 개수: " + str(cnt))
+results.show(box_thickness=2, show_confidence=True)
