@@ -12,21 +12,24 @@ if use_cuda:
   print(torch.cuda.get_device_name(0))
 
 #-- 사전학습된 Yolo_nas_small 모델 불러오기(빠르지만 정확도가 낮음)
-model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
+model1 = models("yolo_nas_l", pretrained_weights ="coco").to(device)
 # model2 = models.get("yolo_nas_m", pretrained_weights ="coco").to(device)
 # model3 = models.get("yolo_nas_s", pretrained_weights ="coco").to(device)
 
-img = cv2.imread("Test_video/test_photo1.jpg")
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+test_imgs = ["Test_video/test_photo1.jpg", "Test_video/test_photo2.jpg", "Test_video/test_photo3.jpg", "Test_video/test_photo4.jpg"]
 
-results = model1.predict(img, conf=0.25)
+for img in test_imgs:
+    now = cv2.imread(img)
+    now = cv2.cvtColor(now, cv2.COLOR_BGR2RGB)
+    now = cv2.resize(now, (0, 0), fx=0.5, fy=0.5)
 
-for result in results :
-    labels = result.prediction.labels
 
-labels = list(labels)
-cnt = labels.count(2) + labels.count(7)
+    results = model1.predict(now, conf=0.25, fuse_model= False)
 
-print("인식된 차량의 개수: " + str(cnt))
-results.show(box_thickness=2, show_confidence=True)
+    for result in results :
+        labels = result.prediction.labels
+
+    labels = list(labels)
+    cnt = labels.count(2) + labels.count(7)
+
+    print("인식된 차량의 개수: " + str(cnt))
