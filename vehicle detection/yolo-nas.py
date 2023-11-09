@@ -29,6 +29,16 @@ for img in test_imgs:
         labels = result.prediction.labels
 
     labels = list(labels)
-    cnt = labels.count(2) + labels.count(7)
+    # cnt = labels.count(2) + labels.count(7)
+    count_2 = 0
+    count_7 = 0
+
+    for num in labels:
+        if num == 2:
+            count_2 += 1
+        elif num == 7:
+            count_7 += 1
+
+    cnt = count_2 + count_7
 
     print("인식된 차량의 개수: " + str(cnt))
