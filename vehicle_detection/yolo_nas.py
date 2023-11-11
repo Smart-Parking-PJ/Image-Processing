@@ -14,11 +14,10 @@ if use_cuda:
 model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
 
 def count_car(img):
-    img = cv2.imread(img)
+    # img = cv2.imread(img)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
  
-
     results = model1.predict(img, conf=0.25, fuse_model= False)
 
     for result in results :

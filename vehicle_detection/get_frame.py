@@ -1,7 +1,8 @@
 import time
 import cv2
+from yolo_nas import count_car
 
-video_path="vehicle detection/Test_video/test2.mp4" #영상 주소
+video_path="vehicle_detection/Test_video/school3.mp4" #영상 주소
 cap = cv2.VideoCapture(video_path)
 last_output_time=time.time() 
 output_time=2 #5 or 10
@@ -15,7 +16,7 @@ while True:
 
     if(video_current_time-last_output_time>=output_time): #n초마다 영상 캡쳐
         cv2.imshow("video", frame)
-        print("image save")
+        print(count_car(frame))
         last_output_time=video_current_time
 
     if cv2.waitKey(1) & 0xFF == ord('a'): #종료
