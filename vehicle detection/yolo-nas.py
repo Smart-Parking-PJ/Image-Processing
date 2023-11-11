@@ -21,7 +21,7 @@ for img in test_imgs:
     now = cv2.imread(img)
     now = cv2.cvtColor(now, cv2.COLOR_BGR2RGB)
     now = cv2.resize(now, (0, 0), fx=0.5, fy=0.5)
-
+ 
 
     results = model1.predict(now, conf=0.25, fuse_model= False)
 
@@ -30,15 +30,14 @@ for img in test_imgs:
 
     labels = list(labels)
     # cnt = labels.count(2) + labels.count(7)
+
     count_2 = 0
     count_7 = 0
-
     for num in labels:
         if num == 2:
             count_2 += 1
         elif num == 7:
             count_7 += 1
-
     cnt = count_2 + count_7
 
     print("인식된 차량의 개수: " + str(cnt))
