@@ -3,8 +3,7 @@ from api_server import api_add
 
 def api_patch(id, car, image):
     
-    ts = requests.get(api_add + str(id) + "/")["totalspace"]
-
+    ts = requests.get(api_add + str(1) + "/").json()["totalspace"]
     update_data = {
         "currentcar": car,
         "emptyspace" : ts - car,
