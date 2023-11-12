@@ -16,9 +16,8 @@ while True:
     video_current_time=time.time() #현재 시간
 
     if(video_current_time-last_output_time>=output_time): #n초마다 영상 캡쳐
-        cv2.imshow("video", frame)
         car = count_car(frame)
-        api_patch(1, car, bytearray(frame))
+        api_patch(1, car, frame.tobytes())
         last_output_time=video_current_time
 
     if cv2.waitKey(1) & 0xFF == ord('a'): #종료
