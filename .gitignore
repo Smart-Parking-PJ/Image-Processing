@@ -197,3 +197,4 @@ pyrightconfig.json
 Test_video/
 api_server.py
 __pycache__/
+secrets.json
