@@ -1,6 +1,6 @@
 import torch
 from super_gradients.training import models
-from app.file_control import save_file
+
 class YOLO:
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(device)
