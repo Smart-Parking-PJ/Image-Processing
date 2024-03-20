@@ -1,4 +1,3 @@
-import cv2
 import torch
 from super_gradients.training import models
 
@@ -14,17 +13,9 @@ class YOLO:
     model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
 
     async def count_car(self, img):
-        img = cv2.imread(img)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
-    
         results = self.model1.predict(img, conf=0.25, fuse_model= False)
-
-        for result in results :
-            labels = result.prediction.labels
-
-        labels = list(labels)
-
+        results.save(output_folder="predicted/")
+        labels = results[0].prediction.labels
         count_car = 0
         count_truck = 0
         for num in labels:
@@ -35,8 +26,9 @@ class YOLO:
         cnt = count_car + count_truck
         print("인식된 차량의 개수: " + str(cnt))
 
-        return(cnt)
+        return cnt
+
     
 if __name__ == "__main__":
     test = YOLO()
-    print(test.count_car("vehicle_detection/app/test_img/test.png"))
+    print(test.count_car("app/test_img/test2.jpg"))
