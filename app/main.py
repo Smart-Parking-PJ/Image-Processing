@@ -17,8 +17,5 @@ async def detection(file: UploadFile, idx: int):
     car = await yolo.count_car(path)
     print("차량 개수= " + str(car))
     print("index: ", idx)
-    # await api_patch(idx, car, file)
+    api_patch(idx, car)
     return car
-@app.get("/")
-async def test():
-    return FileResponse("predicted/pred_0.jpg")
