@@ -2,9 +2,9 @@ import requests
 from app.config import get_secret
 
 def api_patch(id, car):
-    api_url = get_secret("API_SERVER") + "parking/"
+    api_url = get_secret("API_SERVER")
     ts = requests.get(api_url + str(id)).json()["totalSpace"]
-    with open('predicted/pred_0.jpg', 'rb') as file:
+    with open('pred.jpg', 'rb') as file:
         img = file.read()
         upload = {'image':img}
         update_data = {
