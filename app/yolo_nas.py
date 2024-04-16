@@ -1,5 +1,7 @@
 import torch
 from super_gradients.training import models
+import supervision as sv
+
 
 class YOLO:
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -14,21 +16,19 @@ class YOLO:
 
     async def count_car(self, img):
         results = self.model1.predict(img, conf=0.25, fuse_model= False)
-        results.save(output_folder="predicted/")
-        labels = results[0].prediction.labels
-        count_car = 0
-        count_truck = 0
-        for num in labels:
+        results.save(output_path="pred.jpg")
+        detections = sv.Detections.from_yolo_nas(results)
+        count_car, count_truck = 0, 0
+        for num in detections.class_id:
             if num == 2:
                 count_car += 1
             elif num == 7:
                 count_truck += 1
         cnt = count_car + count_truck
         print("인식된 차량의 개수: " + str(cnt))
-
         return cnt
 
     
 if __name__ == "__main__":
     test = YOLO()
-    print(test.count_car("app/test_img/test2.jpg"))
+    print(test.count_car("app/test_img/test2.jpg", 1))

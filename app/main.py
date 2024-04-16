@@ -15,7 +15,5 @@ yolo = YOLO()
 async def detection(file: UploadFile, idx: int):
     path = await save_file(file.file)
     car = await yolo.count_car(path)
-    print("차량 개수= " + str(car))
-    print("index: ", idx)
     api_patch(idx, car)
     return car
