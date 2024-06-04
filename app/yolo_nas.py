@@ -13,9 +13,9 @@ class YOLO:
 
     #-- 사전학습된 Yolo_nas_small 모델 불러오기(빠르지만 정확도가 낮음)
     model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
-
-    async def count_car(self, img):
-        results = self.model1.predict(img, conf=0.25, fuse_model= False)
+    confs = [0.25, 0.5, 0.25, 0.2]
+    async def count_car(self, img, idx):
+        results = self.model1.predict(img, conf=self.confs[idx], fuse_model= False)
         results.save(output_path="pred.jpg")
         detections = sv.Detections.from_yolo_nas(results)
         count_car, count_truck = 0, 0

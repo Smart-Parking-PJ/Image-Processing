@@ -14,6 +14,6 @@ yolo = YOLO()
 @app.post("/photo/{idx}")
 async def detection(file: UploadFile, idx: int):
     path = await save_file(file.file)
-    car = await yolo.count_car(path)
+    car = await yolo.count_car(path, idx)
     api_patch(idx, car)
     return car
