@@ -13,7 +13,7 @@ class YOLO:
 
     #-- 사전학습된 Yolo_nas_small 모델 불러오기(빠르지만 정확도가 낮음)
     model1 = models.get("yolo_nas_l", pretrained_weights ="coco").to(device)
-    confs = [0.25, 0.5, 0.25, 0.2]
+    confs = [0.25, 0.5, 0.25, 0.3]
     async def count_car(self, img, idx):
         results = self.model1.predict(img, conf=self.confs[idx], fuse_model= False)
         results.save(output_path="pred.jpg")
