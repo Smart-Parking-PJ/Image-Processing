@@ -16,7 +16,7 @@ class YOLO:
     confs = [0.25, 0.5, 0.25, 0.3]
     async def count_car(self, img, idx):
         results = self.model1.predict(img, conf=self.confs[idx], fuse_model= False)
-        results.save(output_path="pred.jpg")
+        results.save(output_path=f"predicted{idx}.jpg")
         detections = sv.Detections.from_yolo_nas(results)
         count_car, count_truck = 0, 0
         for num in detections.class_id:
