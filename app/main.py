@@ -1,4 +1,5 @@
 from fastapi import FastAPI, UploadFile, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from typing import List
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, select, insert, update, delete, func
@@ -21,7 +22,13 @@ parkinglots = Table('users', metadata,
 metadata.create_all(engine)
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins='*',
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 라즈베리파이에서 보내는 요청
 yolo = YOLO()
@@ -62,7 +69,7 @@ async def read_lot(lot_id: int):
         result = conn.execute(select(parkinglots).where(parkinglots.c.id == lot_id))
         lot = result.fetchall()
         if lot:
-            return lot
+            return lot[0]
         else:
             raise HTTPException(status_code=404, detail="User not found")
 
